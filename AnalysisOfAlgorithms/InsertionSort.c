@@ -21,8 +21,8 @@ int main()
     printf("Sorted elements are:\n");
     for (i = 0; i < size; i++)
         printf("%d ", numbers[i]);
+    
     printf("\n");
-
     return 0;
 }
 
