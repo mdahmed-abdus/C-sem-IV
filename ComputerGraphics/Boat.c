@@ -36,8 +36,11 @@ void bresLine(int x1, int y1, int x2, int y2, int colour)
     int dx = abs(x2 - x1);
     int dy = abs(y2 - y1);
 
-    int x, y, p;
-    int xend, yend;
+    int p;
+    int x = x1;
+    int y = y1;
+    int xend = x2;
+    int yend = y2;
 
     if (dx > dy)
     {
@@ -46,12 +49,6 @@ void bresLine(int x1, int y1, int x2, int y2, int colour)
             x = x2;
             y = y2;
             xend = x1;
-        }
-        else
-        {
-            x = x1;
-            y = y1;
-            xend = x2;
         }
 
         p = 2 * dy - dx;
@@ -77,12 +74,6 @@ void bresLine(int x1, int y1, int x2, int y2, int colour)
             x = x2;
             y = y2;
             yend = y1;
-        }
-        else
-        {
-            x = x1;
-            y = y1;
-            yend = y2;
         }
 
         p = 2 * dx - dy;
