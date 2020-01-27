@@ -53,8 +53,8 @@ void bresLine(int x1, int y1, int x2, int y2, int colour)
             y = y1;
             xend = x2;
         }
-        p = 2 * dy - dx;
 
+        p = 2 * dy - dx;
         putpixel(x, y, colour);
 
         while (x <= xend)
@@ -86,7 +86,6 @@ void bresLine(int x1, int y1, int x2, int y2, int colour)
         }
 
         p = 2 * dx - dy;
-
         putpixel(x, y, colour);
 
         while (y <= yend)
