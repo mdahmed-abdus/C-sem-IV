@@ -5,6 +5,7 @@
 
 int min(int no1, int no2);
 void allPair(int path[ROW][COLUMN], int cost[ROW][COLUMN], int noOfNodes);
+void printMatrix(int path[ROW][COLUMN], int noOfNodes);
 
 int main()
 {
@@ -29,18 +30,6 @@ int main()
 
     allPair(path, cost, noOfNodes);
 
-    printf("Shortest path is:\n\t");
-    for (i = 1; i <= noOfNodes; i++)
-        printf("%d\t", i);
-    printf("\n");
-    for (i = 1; i <= noOfNodes; i++)
-    {
-        printf("\n%d\t", i);
-        for (j = 1; j <= noOfNodes; j++)
-            printf("%d\t", path[i][j]);
-        printf("\n");
-    }
-
     printf("\n");
     return 0;
 }
@@ -60,8 +49,37 @@ void allPair(int path[ROW][COLUMN], int cost[ROW][COLUMN], int noOfNodes)
         for (j = 1; j <= noOfNodes; j++)
             path[i][j] = cost[i][j];
 
+    printf("Path 0:\n");
+    printMatrix(path, noOfNodes);
+
     for (k = 1; k <= noOfNodes; k++)
+    {
         for (i = 1; i <= noOfNodes; i++)
             for (j = 1; j <= noOfNodes; j++)
                 path[i][j] = min(path[i][j], path[i][k] + path[k][j]);
+
+        if (k == noOfNodes)
+            printf("Shortest path:\n");
+        else
+            printf("Path %d:\n", k);
+        printMatrix(path, noOfNodes);
+    }
+}
+
+void printMatrix(int path[ROW][COLUMN], int noOfNodes)
+{
+    int i, j;
+
+    printf("\t");
+    for (i = 1; i <= noOfNodes; i++)
+        printf("%d\t", i);
+    printf("\n");
+    for (i = 1; i <= noOfNodes; i++)
+    {
+        printf("\n%d\t", i);
+        for (j = 1; j <= noOfNodes; j++)
+            printf("%d\t", path[i][j]);
+        printf("\n");
+    }
+    printf("\n");
 }
