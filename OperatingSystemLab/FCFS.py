@@ -1,7 +1,11 @@
 from operator import itemgetter
 
+print("NOTE: FCFS")
+print("1. Arrival time of at least one process must be 0")
+print("2. CPU must never be idle")
+
 processes = []
-no_of_processes = int(input("Enter the number of processes: "))
+no_of_processes = int(input("\nEnter the number of processes: "))
 unit = input("Enter the time unit: ")
 
 for i in range(no_of_processes):
@@ -52,6 +56,21 @@ for i in range(1, no_of_processes):
 avg_wait_time = total_wait_time / no_of_processes
 avg_turn_around_time = total_turn_around_time / no_of_processes
 
+# display gnatt chart
+print("\nGnatt chart")
+for i in range(no_of_processes):
+    if i == no_of_processes - 1:
+        print(
+            f"{processes[i].get('start_time')}"
+            f"<P[{processes[i].get('process_id')}]>"
+            f"{processes[i].get('start_time') + processes[i].get('burst_time')}"
+        )
+    else:
+        print(
+            f"{processes[i].get('start_time')}"
+            f"<P[{processes[i].get('process_id')}]>", end=""
+        )
+
 # display table
 print("\nProcess ID\tStart time\tArrival time\tWaiting time\tTurn around time")
 for process in processes:
@@ -61,10 +80,9 @@ for process in processes:
     wait_time = process.get("wait_time")
     turn_around_time = process.get("turn_around_time")
     print(f"{process_id}\t\t{start_time}\t\t{arrival_time}\t\t{wait_time}\t\t{turn_around_time}")
-print()
 
 # display answers
-print("Total waiting time:", total_wait_time, unit)
+print("\nTotal waiting time:", total_wait_time, unit)
 print("Total turn around time:", total_turn_around_time, unit)
-print("Average waiting time:", avg_wait_time, unit)
-print("Average turn around time:", avg_turn_around_time, unit)
+print("Average waiting time:", round(avg_wait_time, 2), unit)
+print("Average turn around time:", round(avg_turn_around_time, 2), unit)
