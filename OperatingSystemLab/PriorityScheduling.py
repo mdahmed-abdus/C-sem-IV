@@ -1,0 +1,86 @@
+from operator import itemgetter
+
+print("NOTE: Priority")
+print("CPU must never be idle")
+
+processes = []
+no_of_processes = int(input("\nEnter the number of processes: "))
+unit = input("Enter the time unit: ")
+
+for i in range(no_of_processes):
+    print("\nFor process number:", i)
+
+    process_id = int(input("Enter the process id: "))
+    burst_time = int(input("Enter the burst time: "))
+    priority = int(input("Enter the priority: "))
+
+    processes.append({
+        "process_id": process_id,
+        "burst_time": burst_time,
+        "priority": priority
+    })
+
+# sorting processes based on priority
+processes = sorted(processes, key=itemgetter("priority"))
+
+# calculate start, wait, turn around time for processes 0
+start_time = 0
+turn_around_time = processes[0].get("burst_time")
+
+processes[0].update({
+    "start_time": start_time,
+    "wait_time": 0,
+    "turn_around_time": turn_around_time
+})
+
+total_wait_time = 0
+total_turn_around_time = turn_around_time
+
+# calculate start, wait, turn around time for other processes
+for i in range(1, no_of_processes):
+    start_time = processes[i - 1].get("start_time") + \
+        processes[i - 1].get("burst_time")
+    wait_time = start_time
+    turn_around_time = wait_time + processes[i].get("burst_time")
+
+    processes[i].update({
+        "start_time": start_time,
+        "wait_time": wait_time,
+        "turn_around_time": turn_around_time
+    })
+
+    total_wait_time += wait_time
+    total_turn_around_time += turn_around_time
+
+avg_wait_time = total_wait_time / no_of_processes
+avg_turn_around_time = total_turn_around_time / no_of_processes
+
+# display gnatt chart
+print("\nGnatt chart")
+for i in range(no_of_processes):
+    if i == no_of_processes - 1:
+        print(
+            f"{processes[i].get('start_time')}"
+            f"<P[{processes[i].get('process_id')}]>"
+            f"{processes[i].get('start_time') + processes[i].get('burst_time')}"
+        )
+    else:
+        print(
+            f"{processes[i].get('start_time')}"
+            f"<P[{processes[i].get('process_id')}]>", end=""
+        )
+
+# display table
+print("\nProcess ID\tStart time\tArrival time\tWaiting time\tTurn around time")
+for process in processes:
+    process_id = process.get("process_id")
+    start_time = process.get("start_time")
+    wait_time = process.get("wait_time")
+    turn_around_time = process.get("turn_around_time")
+    print(f"{process_id}\t\t{start_time}\t\t0\t\t{wait_time}\t\t{turn_around_time}")
+
+# display answers
+print("\nTotal waiting time:", total_wait_time, unit)
+print("Total turn around time:", total_turn_around_time, unit)
+print("Average waiting time:", round(avg_wait_time, 2), unit)
+print("Average turn around time:", round(avg_turn_around_time, 2), unit)
