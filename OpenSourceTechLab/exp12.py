@@ -1,12 +1,13 @@
 # send an email in python
 
+from getpass import getpass
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 
 sender_name = input("Enter the sender's name: ")
 sender_email = input("Enter the sender's email: ")
-sender_password = input("Enter the password: ")
+sender_password = getpass("Enter the password: ")
 port = int(input("Enter the port number (default = 587): "))
 
 receiver_email = input("Enter the receiver's email: ")
